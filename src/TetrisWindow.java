@@ -15,6 +15,8 @@ public class TetrisWindow extends JFrame implements ActionListener{
     
     private TetrisDisplay display;
     private TetrisGame game;
+
+    private MusicPlayer musicPlayer;
     
     int game_cols = 12;
     int game_rows = 20;
@@ -31,11 +33,13 @@ public class TetrisWindow extends JFrame implements ActionListener{
         this.setTitle("Tetris: Created by Ethan Campbell");
         this.setSize(win_Wid, win_Hei);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        musicPlayer = new MusicPlayer();
+        musicPlayer.playMusic("fight.wav");
         
         game = new TetrisGame(game_rows, game_cols);
         display = new TetrisDisplay(game);
         this.add(display);
-        this.setResizable(false);
         this.setLocationRelativeTo(null);
         
         menuBar = new JMenuBar();

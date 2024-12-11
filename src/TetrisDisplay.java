@@ -115,11 +115,11 @@ public class TetrisDisplay extends JPanel{
         
         int bigFont = 50;
         int gameOverX = 0;
-        int gameOverY = 70;
-        int gameOverWid = 450;
+        int gameOverY = 50;
+        int gameOverWid = 500;
         int gameOverHei = 150;
-        int stringX = 60;
-        int stringY = 150;
+        int stringX = 100;
+        int stringY = 140;
         
         if(game.checkBoard() == true){
             
