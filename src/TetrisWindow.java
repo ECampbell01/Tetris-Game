@@ -5,9 +5,8 @@
  * Author: Ethan Campbell
  */
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 public class TetrisWindow extends JFrame implements ActionListener{
     
@@ -29,7 +28,7 @@ public class TetrisWindow extends JFrame implements ActionListener{
     
     public TetrisWindow(){
 
-        this.setTitle("My Tetris Game");
+        this.setTitle("Tetris: Created by Ethan Campbell");
         this.setSize(win_Wid, win_Hei);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

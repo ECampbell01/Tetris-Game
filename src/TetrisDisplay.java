@@ -86,11 +86,7 @@ public class TetrisDisplay extends JPanel{
                 break;
                 
             case KeyEvent.VK_SPACE:
-                if(pause == false)
-                    pause = true;
-                
-                else
-                    pause = false;
+                pause = !pause;
                 break;
         }
         repaint();
@@ -184,16 +180,16 @@ public class TetrisDisplay extends JPanel{
     private void drawBrick(Graphics g){
     
         int color = game.getFallingBrickColor();
-        for(int dex = 0; dex < game.getNumSeg(); dex++)
+        for(int i = 0; i < game.getNumSeg(); i++)
         {
             
             g.setColor(colors[color]);
-            g.fillRect(start_X + cell_Size + game.getSegCol(dex) * cell_Size,
-                    start_Y + cell_Size + game.getSegRow(dex) * cell_Size, cell_Size, cell_Size);
+            g.fillRect(start_X + cell_Size + game.getSegCol(i) * cell_Size,
+                    start_Y + cell_Size + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
             
             g.setColor(Color.BLACK);
-            g.drawRect(start_X + cell_Size + game.getSegCol(dex) * cell_Size,
-                    start_Y + cell_Size + game.getSegRow(dex) * cell_Size, cell_Size, cell_Size);
+            g.drawRect(start_X + cell_Size + game.getSegCol(i) * cell_Size,
+                    start_Y + cell_Size + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
         }
     }
 }

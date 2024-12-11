@@ -5,8 +5,8 @@
  * Author: Ethan Campbell
  */
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class TetrisGame {
    
@@ -195,7 +195,7 @@ public class TetrisGame {
         score = 0;
     }
     
-    private void transferColor(int color, int row, int col){
+    private void transferColor(int color){
     
         for(int dex = 0; dex < getNumSeg(); dex++){
         
@@ -264,41 +264,50 @@ public class TetrisGame {
             }
         }
     }
-    
-    public void makeMove(String direction){
+
+    public boolean canMoveDown(TetrisBrick brick) {
+        for (int i = 0; i < brick.numSegments; i++) {
+            int newRow = brick.getSegPosition(i, 1) + 1; // Calculate new row position
+            int col = brick.getSegPosition(i, 0); // Column position
             
-        if(Objects.equals(direction, "D")){    
-            fallingBrick.moveDown(); 
-            
-            if(!validateMove()){
-                
-                fallingBrick.moveUp();
-                transferColor(fallingBrick.colorNum, rows, cols);
-                spawnBrick();
-            } 
+            // Check if newRow exceeds the board or collides with existing blocks
+            if (newRow >= getRows() || fetchBoardPosition(newRow, col) != 0) {
+                return false;
+            }
         }
-            
-        else if(Objects.equals(direction, "L")){
+        return true;
+    }
+    
+   public void makeMove(String direction) {
+    switch (direction) {
+        case "D" -> {
+            fallingBrick.moveDown();
+            if (!validateMove()) {
+                fallingBrick.moveUp();
+                transferColor(fallingBrick.colorNum);
+                spawnBrick();
+            }
+        }
+        case "L" -> {
             fallingBrick.moveLeft();
-            
-            if(!validateMove())
+            if (!validateMove()) {
                 fallingBrick.moveRight();
-        }   
-        
-        else if(Objects.equals(direction, "R")){
+            }
+        }
+        case "R" -> {
             fallingBrick.moveRight();
-            
-            if(!validateMove())
+            if (!validateMove()) {
                 fallingBrick.moveLeft();
-        }   
-        
-        else if(Objects.equals(direction, "U")){
+            }
+        }
+        case "U" -> {
             fallingBrick.rotate();
-            
-            if(!validateMove())
+            if (!validateMove()) {
                 fallingBrick.unrotate();
+            }
         }
     }
+}
     
     public int fetchBoardPosition(int row, int col){
     
@@ -328,7 +337,7 @@ public class TetrisGame {
             int segrow = getSegRow(seg);
             int segcolumn = getSegCol(seg);
             
-            if(segrow + 1 > rows || segcolumn > cols - 1 || segcolumn + 1 == 0) 
+            if(segrow >= rows || segcolumn < 0 || segcolumn >= cols)
                 return false;
             
             else if(background[segrow][segcolumn] > 0 )

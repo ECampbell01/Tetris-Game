@@ -24,37 +24,28 @@ public abstract class TetrisBrick {
         return position[row][col];
     }
     
-    public void moveDown(){
-        
-       position[0][1] += 1;
-       position[1][1] += 1;
-       position[2][1] += 1;
-       position[numSegments - 1][1] += 1;
+    public void moveDown() {
+        for (int i = 0; i < numSegments; i++) {
+            position[i][1] += 1;
+        }
+    }
+    
+   public void moveUp() {
+        for (int i = 0; i < numSegments; i++) {
+            position[i][1] -= 1;
+        }
+    }
 
+    public void moveLeft() {
+        for (int i = 0; i < numSegments; i++) {
+            position[i][0] -= 1;
+        }
     }
-    
-    public void moveUp(){
-    
-       position[0][1] -= 1;
-       position[1][1] -= 1;
-       position[2][1] -= 1;
-       position[numSegments - 1][1] -= 1;
-    }
-    
-    public void moveLeft(){
-    
-       position[0][0] -= 1;
-       position[1][0] -= 1;
-       position[2][0] -= 1;
-       position[numSegments - 1][0] -= 1;
-    }
-    
-    public void moveRight(){
-    
-       position[0][0] += 1;
-       position[1][0] += 1;
-       position[2][0] += 1;
-       position[numSegments - 1][0] += 1;
+
+    public void moveRight() {
+        for (int i = 0; i < numSegments; i++) {
+            position[i][0] += 1;
+        }
     }
     
     public int getColorNumber(){
