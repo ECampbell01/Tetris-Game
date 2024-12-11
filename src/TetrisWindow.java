@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class TetrisWindow extends JFrame implements ActionListener{
     
-    private int win_Wid = 430;
+    private int win_Wid = 500;
     private int win_Hei = 600;       
     
     private TetrisDisplay display;

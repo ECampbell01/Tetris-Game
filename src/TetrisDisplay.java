@@ -12,9 +12,9 @@ import javax.swing.*;
 public class TetrisDisplay extends JPanel{
     
     private int cell_Size = 20;
-    private int start_X = 70;
+    private int start_X = 120;
     private int start_Y = 70;
-    private int wallWid = 15;
+    private int wallWid = 20;
     private int speed = 1000;
     
     private Color[] colors = {Color.WHITE, Color.ORANGE, Color.GREEN, 
@@ -114,9 +114,9 @@ public class TetrisDisplay extends JPanel{
     public void gameOver(Graphics g){
         
         int bigFont = 50;
-        int gameOverX = 55;
+        int gameOverX = 0;
         int gameOverY = 70;
-        int gameOverWid = 310;
+        int gameOverWid = 450;
         int gameOverHei = 150;
         int stringX = 60;
         int stringY = 150;
@@ -139,57 +139,57 @@ public class TetrisDisplay extends JPanel{
             timer.start();
     }
     
-    public void drawWell(Graphics g){
-    
+    public void drawWell(Graphics g) {
+        int adjustedStartX = start_X;
+        int adjustedStartY = start_Y;
+
         g.setColor(Color.WHITE);
-        g.fillRect((start_X + cell_Size) - wallWid, (start_Y + cell_Size) - wallWid,
-                cell_Size * game.getCols() + 2 * wallWid, cell_Size * game.getRows() + 2 * wallWid - cell_Size);
-        
+        g.fillRect(adjustedStartX - wallWid, adjustedStartY - wallWid,
+                cell_Size * game.getCols() + 2 * wallWid, cell_Size * game.getRows() + 2 * wallWid);
+
         g.setColor(Color.BLACK);
-        g.fillRect((start_X + cell_Size) - wallWid, (start_Y + cell_Size) - wallWid, 
-                wallWid, cell_Size * game.getRows() + 2 * wallWid - cell_Size);
-                
-        g.fillRect((start_X + cell_Size) + cell_Size * game.getCols(), (start_Y + cell_Size) - wallWid, 
-                wallWid, cell_Size * game.getRows() + 2 * wallWid - cell_Size);
-        
-        g.fillRect((start_X + cell_Size) - wallWid, start_Y - wallWid + cell_Size * game.getRows() + wallWid,
-                cell_Size * game.getCols() + 2 * wallWid, wallWid);
+        g.fillRect(adjustedStartX - wallWid, adjustedStartY - wallWid, 
+                wallWid, cell_Size * game.getRows() + 2 * wallWid); // Left wall
+
+        g.fillRect(adjustedStartX + cell_Size * game.getCols(), adjustedStartY - wallWid, 
+                wallWid, cell_Size * game.getRows() + 2 * wallWid); // Right wall
+
+        g.fillRect(adjustedStartX - wallWid, adjustedStartY + cell_Size * game.getRows(), 
+                cell_Size * game.getCols() + 2 * wallWid, wallWid); // Bottom wall
     }
     
-    public void drawBackground(Graphics g){
-    
+    public void drawBackground(Graphics g) {
         int colorNum;
-        
-        for(int rowNum = 0; rowNum < game.getRows(); rowNum++){
-        
-            for(int colNum = 0; colNum < game.getCols(); colNum++){
-            
+        int adjustedStartX = start_X;
+        int adjustedStartY = start_Y;
+
+        for (int rowNum = 0; rowNum < game.getRows(); rowNum++) {
+            for (int colNum = 0; colNum < game.getCols(); colNum++) {
                 colorNum = game.fetchBoardPosition(rowNum, colNum);
-                
-                if(colorNum != 0){
-                
+
+                if (colorNum != 0) {
                     g.setColor(colors[colorNum]);
-                    g.fillRect(start_X + cell_Size + colNum * cell_Size, start_Y + rowNum * cell_Size, cell_Size, cell_Size);
+                    g.fillRect(adjustedStartX + colNum * cell_Size, adjustedStartY + rowNum * cell_Size, cell_Size, cell_Size);
                     g.setColor(Color.BLACK);
-                    g.drawRect(start_X + cell_Size + colNum * cell_Size, start_Y + rowNum * cell_Size, cell_Size, cell_Size);
+                    g.drawRect(adjustedStartX + colNum * cell_Size, adjustedStartY + rowNum * cell_Size, cell_Size, cell_Size);
                 }
             }
         }
     }
     
-    private void drawBrick(Graphics g){
-    
+    private void drawBrick(Graphics g) {
         int color = game.getFallingBrickColor();
-        for(int i = 0; i < game.getNumSeg(); i++)
-        {
-            
+        int adjustedStartX = start_X;
+        int adjustedStartY = start_Y;
+
+        for (int i = 0; i < game.getNumSeg(); i++) {
             g.setColor(colors[color]);
-            g.fillRect(start_X + cell_Size + game.getSegCol(i) * cell_Size,
-                    start_Y + cell_Size + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
-            
+            g.fillRect(adjustedStartX + game.getSegCol(i) * cell_Size,
+                    adjustedStartY + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
+
             g.setColor(Color.BLACK);
-            g.drawRect(start_X + cell_Size + game.getSegCol(i) * cell_Size,
-                    start_Y + cell_Size + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
+            g.drawRect(adjustedStartX + game.getSegCol(i) * cell_Size,
+                    adjustedStartY + (game.getSegRow(i) - 1) * cell_Size, cell_Size, cell_Size);
         }
     }
 }

@@ -175,13 +175,13 @@ public class TetrisGame {
         return fallingBrick.getColorNumber();
     }
     
-    public void initBoard(int rs, int cs){
+    public void initBoard(int r, int c){
         
-        background = new int[rs][cs];
+        background = new int[r][c];
         
-        for(int row = 0; row < rs; row++){
+        for(int row = 0; row < r; row++){
         
-            for(int col = 0; col < cs; col++){
+            for(int col = 0; col < c; col++){
             
                 background[row][col] = 0;
             }
@@ -263,19 +263,6 @@ public class TetrisGame {
                 background[row][col] = background[row - 1][col];
             }
         }
-    }
-
-    public boolean canMoveDown(TetrisBrick brick) {
-        for (int i = 0; i < brick.numSegments; i++) {
-            int newRow = brick.getSegPosition(i, 1) + 1; // Calculate new row position
-            int col = brick.getSegPosition(i, 0); // Column position
-            
-            // Check if newRow exceeds the board or collides with existing blocks
-            if (newRow >= getRows() || fetchBoardPosition(newRow, col) != 0) {
-                return false;
-            }
-        }
-        return true;
     }
     
    public void makeMove(String direction) {
